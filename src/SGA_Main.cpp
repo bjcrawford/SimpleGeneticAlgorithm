@@ -5,11 +5,8 @@
  * @details
  */
 
-#ifndef SGA_HPP
-#define SGA_HPP
+int main(int argc, char **argv)
+{
 
-
-
-
-
-#endif
+	return 0;
+}

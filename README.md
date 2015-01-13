@@ -9,4 +9,4 @@ max f(x) = x * sin(10 * pi * x) + 2.0 s.t. -1 <= x <= 2
 
 The curve of the above objective function is shown below:
 
-![Image of curve](https://raw.github.com/bjcrawford/SimpleGeneticAlgorithm/master/curve.png)
+![Image of curve](https://raw.github.com/bjcrawford/SimpleGeneticAlgorithm/master/res/curve.png)

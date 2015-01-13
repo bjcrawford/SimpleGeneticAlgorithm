@@ -13,7 +13,7 @@
 #include <random>
 #include <vector>
 
-#include "SGAConstants.hpp"
+#include "../SGAConstants.hpp"
 
 typedef std::vector<bool> bool_vec;
 typedef std::string string;

@@ -1,16 +1,27 @@
 /**
- * @file TestIndividual.cpp
+ * @file IndividualTests.cpp
  * @author Brett Crawford
  * @brief
  * @detail
  * 
  */
 
-#include <iostream>
+#include "../src/Individual/Individual.hpp"
+#include "../src/SGAConstants.hpp"
+#include "gtest/gtest.h"
 
-#include "Individual.hpp"
-#include "SGAConstants.hpp"
+TEST(IndividualTests, defaultConstructorCreationDeletion)
+{
+	Individual *ind = new Individual();
+	EXPECT_EQ(ind->getCount(), 1);
 
+	delete ind;
+	EXPECT_EQ(ind->getCount(), 0);
+}
+
+
+
+/*
 bool testConstructorDefault();
 bool testConstructorOneArg();
 
@@ -74,3 +85,4 @@ bool testConstructorOneArg()
 
 	return true;
 }
+*/
