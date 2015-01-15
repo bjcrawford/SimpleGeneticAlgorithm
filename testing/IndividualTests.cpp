@@ -10,79 +10,176 @@
 #include "../src/SGAConstants.hpp"
 #include "gtest/gtest.h"
 
-TEST(IndividualTests, defaultConstructorCreationDeletion)
+/**
+ * Fixture class for testing the default constuctor
+ */
+class IndividualDefaultConstructorFixtureTests : public testing::Test 
+{
+	protected:
+
+		Individual *ind;
+
+		virtual void SetUp()
+		{
+			ind = new Individual();
+		}
+
+		virtual void TearDown()
+		{
+			delete ind;
+		}
+};
+
+/**
+ * Fixture class for testing the chromosome constructor
+ */
+class IndividualChromoConstructorFixtureTests : public testing::Test
+{
+	protected:
+
+		std::vector<bool> chromo;
+		Individual *ind;
+
+		virtual void SetUp()
+		{
+			chromo = { true, true, false, true, false, true, 
+			           true, false, false, true, false, true };
+			ind = new Individual(chromo);
+		}
+
+		virtual void TearDown()
+		{
+			delete ind;
+		}
+};
+
+/**
+ * Fixture class for testing the real value constructor
+ */
+class IndividualRealConstructorFixtureTests : public testing::Test
+{
+	protected:
+
+		float realValue;
+		Individual *ind;
+
+		virtual void SetUp()
+		{
+			realValue = 0.95336914f;
+			ind = new Individual(realValue);
+		}
+
+		virtual void TearDown()
+		{
+			delete ind;
+		}
+};
+
+// ==============================================================
+// |              Default Constructor Tests                     |
+// ==============================================================
+
+TEST(IndividualDefaultConstructorTests, checkObjectCount)
 {
 	Individual *ind = new Individual();
-	EXPECT_EQ(ind->getCount(), 1);
+	EXPECT_EQ(1, ind->getCount());
 
 	delete ind;
-	EXPECT_EQ(ind->getCount(), 0);
+	EXPECT_EQ(0, ind->getCount());
 }
 
-
-
-/*
-bool testConstructorDefault();
-bool testConstructorOneArg();
-
-int main(int argc, char **argv)
+TEST_F(IndividualDefaultConstructorFixtureTests, checkRealValueBounds)
 {
-	testConstructorDefault();
-	testConstructorOneArg();
-
-	return 0;
+	EXPECT_TRUE(ind->getRealValue() >= -1.0f);
+	EXPECT_TRUE(ind->getRealValue() <= 2.0f);
 }
 
-bool testConstructorDefault()
+TEST_F(IndividualDefaultConstructorFixtureTests, checkObjValueBounds)
 {
-	std::cout << "Default Constructor Test" << std::endl;
-
-	Individual *ind = new Individual();
-	std::cout << "  Individual ind created" << std::endl;
-	std::cout << "  Individual::count: " << ind->getCount() << std::endl;
-
-	std::cout << "  Individual ind properties:" << std::endl;
-	std::cout << "    ind->getRealValue(): " << ind->getRealValue() << std::endl;
-	std::cout << "    ind->getObjValue(): " << ind->getObjValue() << std::endl;
-	std::cout << "    ind->getGenotype(): " << ind->getGenotype() << std::endl;
-	for(int i = 0; i < NUM_OF_GENES; i++)
-	{
-		std::cout << "    ind->getGene(" << i << "): " << ind->getGene(i) 
-		          << std::endl;
-	}
-
-	delete ind;
-	std::cout << "  Individual ind destroyed" << std::endl;
-	std::cout << "  Individual::count: " << ind->getCount() << std::endl;
-
-	return true;
+	EXPECT_TRUE(ind->getObjValue() >= 0.0f);
+	EXPECT_TRUE(ind->getObjValue() <= 4.0f);
 }
 
-bool testConstructorOneArg()
+TEST_F(IndividualDefaultConstructorFixtureTests, checkRelFitnessBounds)
 {
-	std::cout << "One Argument Constructor Test" << std::endl;
+	EXPECT_TRUE(ind->getRelFitness() >= 0.0f);
+	EXPECT_TRUE(ind->getRelFitness() <= 4.0f);
+}
 
+// ==============================================================
+// |              Chromosome Constructor Tests                  |
+// ==============================================================
+
+TEST(IndividualChromoConstructorTests, checkObjectCount)
+{
 	std::vector<bool> chromo = { true, true, false, true, false, true, 
 		                         true, false, false, true, false, true };
 
 	Individual *ind = new Individual(chromo);
-	std::cout << "  Individual ind created" << std::endl;
-	std::cout << "  Individual::count: " << ind->getCount() << std::endl;
-
-	std::cout << "  Individual ind properties:" << std::endl;
-	std::cout << "    ind->getRealValue(): " << ind->getRealValue() << std::endl;
-	std::cout << "    ind->getObjValue(): " << ind->getObjValue() << std::endl;
-	std::cout << "    ind->getGenotype(): " << ind->getGenotype() << std::endl;
-	for(int i = 0; i < NUM_OF_GENES; i++)
-	{
-		std::cout << "    ind->getGene(" << i << "): " << ind->getGene(i) 
-		          << std::endl;
-	}
+	EXPECT_EQ(1, ind->getCount());
 
 	delete ind;
-	std::cout << "  Individual ind destroyed" << std::endl;
-	std::cout << "  Individual::count: " << ind->getCount() << std::endl;
-
-	return true;
+	EXPECT_EQ(0, ind->getCount());
 }
-*/
+
+TEST_F(IndividualChromoConstructorFixtureTests, checkRealValue)
+{
+	// Refactor to calculate the magic number here
+	EXPECT_FLOAT_EQ(0.953369, ind->getRealValue());
+}
+
+TEST_F(IndividualChromoConstructorFixtureTests, checkObjValue)
+{
+	// Refactor to calculate the magic number here
+	EXPECT_FLOAT_EQ(1.051966, ind->getObjValue());
+}
+
+TEST_F(IndividualChromoConstructorFixtureTests, checkGenotype)
+{
+	// Refactor to create string from chromo
+	EXPECT_EQ("101001101011", ind->getGenotype());
+}
+
+TEST_F(IndividualChromoConstructorFixtureTests, checkRelFitnessBounds)
+{
+	EXPECT_TRUE(ind->getRelFitness() >= 0.0f);
+	EXPECT_TRUE(ind->getRelFitness() <= 4.0f);
+}
+
+// ==============================================================
+// |              Real Value Constructor Tests                  |
+// ==============================================================
+
+TEST(IndividualRealConstructorTests, checkObjectCount)
+{
+	float realValue = 0.95336914f;
+	Individual *ind = new Individual(realValue);
+	EXPECT_EQ(1, ind->getCount());
+
+	delete ind;
+	EXPECT_EQ(0, ind->getCount());
+}
+
+TEST_F(IndividualRealConstructorFixtureTests, checkRealValue)
+{
+	// Refactor to calculate the magic number here
+	EXPECT_FLOAT_EQ(0.953369, ind->getRealValue());
+}
+
+TEST_F(IndividualRealConstructorFixtureTests, checkObjValue)
+{
+	// Refactor to calculate the magic number here
+	EXPECT_FLOAT_EQ(1.051966, ind->getObjValue());
+}
+
+TEST_F(IndividualRealConstructorFixtureTests, checkGenotype)
+{
+	// Refactor to create string from chromo
+	EXPECT_EQ("101001101011", ind->getGenotype());
+}
+
+TEST_F(IndividualRealConstructorFixtureTests, checkRelFitnessBounds)
+{
+	EXPECT_TRUE(ind->getRelFitness() >= 0.0f);
+	EXPECT_TRUE(ind->getRelFitness() <= 4.0f);
+}
