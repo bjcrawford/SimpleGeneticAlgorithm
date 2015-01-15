@@ -34,11 +34,16 @@ class Individual
 		float objValue;      ///< The quality, the objective value, a float 
 		                     ///< representing the evaluation of the 
 		                     ///< chromosome according to the fitness function.
+		
+		float relFitness;    ///< The relative fitness of the individual, the 
+		                     ///< fitness (objective value) divided by the
+		                     ///<  the sum of the population's fitness.
 
 
 	public:
 		Individual();
 		Individual(bool_vec chromosome);
+		Individual(float realValue);
 		virtual ~Individual();
 
 		int getCount();
@@ -46,14 +51,17 @@ class Individual
 		bool_vec getChromosome();
 		float getRealValue();
 		float getObjValue();
+		float getRelFitness();
 		string getGenotype();
 
 		void setGene(int locus, bool allele);
 		void setChromosome(bool_vec chromosome);
+		void setRelativeFitness(float relFitness);
 
 	private:
 		void generateRandomChromosome();
 		float chromoToReal();
+		bool_vec realToChromo();
 		float fitnessFunction();
 
 };

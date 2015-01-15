@@ -28,6 +28,7 @@ Individual::Individual()
 	generateRandomChromosome();
 	realValue = chromoToReal();
 	objValue = fitnessFunction();
+	relFitness = 0;
 	count++;
 }
 
@@ -41,6 +42,21 @@ Individual::Individual(bool_vec chromosome)
 	this->chromosome = chromosome;
 	realValue = chromoToReal();
 	objValue = fitnessFunction();
+	relFitness = 0;
+	count++;
+}
+
+/**
+ * Creates an individual with a given real value 
+ *
+ * @param realValue The real number value
+ */
+Individual::Individual(float realValue)
+{
+	this->realValue = realValue;
+	chromosome = realToChromo();
+	objValue = fitnessFunction();
+	relFitness = 0;
 	count++;
 }
 
@@ -118,6 +134,17 @@ float Individual::getObjValue()
 }
 
 /**
+ * Returns the relative fitness, the fitness (objective 
+ * value) divided by the sum of the population's fitness.
+ * 
+ * @return The relative fitness
+ */
+float Individual::getRelFitness()
+{
+	return relFitness;
+}
+
+/**
  * Returns the binary representation (genotype), as a 
  * string, of the chromosome
  * 
@@ -149,11 +176,26 @@ void Individual::setGene(int locus, bool gene)
 	objValue = fitnessFunction();
 }
 
+/**
+ * Sets the chromosome
+ * 
+ * @param chromosome The chromosome
+ */
 void Individual::setChromosome(bool_vec chromosome)
 {
 	this->chromosome = chromosome;
 	realValue = chromoToReal();
 	objValue = fitnessFunction();
+}
+
+/**
+ * Sets the relative fitness
+ * 
+ * @param relFitness The realtive fitness
+ */
+void Individual::setRelativeFitness(float relFitness)
+{
+	this->relFitness = relFitness;
 }
 
 // ==============================================================
@@ -174,7 +216,7 @@ void Individual::generateRandomChromosome()
   	unsigned int seed = dtn.count();
 
 	std::default_random_engine prng(seed);
-	std::uniform_real_distribution<double> dist(0.0, 1.0);
+	std::uniform_real_distribution<float> dist(0.0, 1.0);
 
 	for(int i = 0; i < NUM_OF_GENES; i++)
 	{
@@ -186,7 +228,7 @@ void Individual::generateRandomChromosome()
 }
 
 /**
- * Converts the vector of boolean chromosome representation to
+ * Converts the vector of booleans chromosome representation to
  * a real number. This method is for internal class use only.
  * 
  * @return The real number representation of the chromosome
@@ -198,6 +240,30 @@ float Individual::chromoToReal()
 		res += chromosome[i] ? pow(2, i) : 0;
 
 	return res / pow(2, NUM_OF_GENES) * (X_U_BOUND - X_L_BOUND) + X_L_BOUND;
+}
+
+/**
+ * Converts the real number chromosome representation to a
+ * vector of booleans. This method is for internal class
+ * use only.
+ * 
+ * @return The vector of booleans representation of the chromosome
+ */
+bool_vec Individual::realToChromo()
+{
+	bool_vec chromo(NUM_OF_GENES, false);
+
+	float res = (realValue - X_L_BOUND) / (X_U_BOUND - X_L_BOUND) * pow(2, NUM_OF_GENES);
+	for(int i = NUM_OF_GENES - 1; i >= 0; i--)
+	{
+		if((res - pow(2, i)) >= 0)
+		{
+			chromo[i] = true;
+			res -= pow(2, i);
+		}
+	}
+	
+	return chromo;
 }
 
 /**
