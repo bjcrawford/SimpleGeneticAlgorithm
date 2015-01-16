@@ -46,8 +46,36 @@ ind_vec Population::getMatingPool()
 	return matingPool;
 }
 
+void Population::selection()
+{
+	typedef std::chrono::system_clock sys_clock;
+	sys_clock::time_point tp = sys_clock::now();
+  	sys_clock::duration dtn = tp.time_since_epoch();
+  	unsigned int seed = dtn.count();
+
+	std::default_random_engine prng(seed);
+	std::uniform_real_distribution<float> dist(0.0, 1.0);
+
+	for(int i = 0; i < POP_SIZE; i++)
+	{
+		float selectValue = dist(prng);
+		float accumValue = 0.0;
+		for(int j = 0; j < POP_SIZE; j++)
+		{
+			if(selectValue >= accumValue &&
+			   selectValue <= (accumValue + population[j]->getRelFitness()))
+			{
+				matingPool[i] = new Individual(population[j]);
+				break;
+			}
+			accumValue += population[j]->getRelFitness();
+		}
+	}
+}
+
 void Population::reproduce()
 {
+
 }
 
 // ==============================================================

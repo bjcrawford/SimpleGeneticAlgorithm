@@ -53,3 +53,16 @@ TEST_F(PopulationDefaultConstructorFixtureTests, checkRelFitnessBounds)
 		EXPECT_LE(inds[i]->getRelFitness(), 1.0) << "pop[" << i << "] is greater than one";
 	}
 }
+
+TEST_F(PopulationDefaultConstructorFixtureTests, checkMatingPool)
+{
+	ind_vec mates = pop->getMatingPool();
+	for(int i = 0; i < POP_SIZE; i++)
+		EXPECT_EQ(NULL, mates[i]);
+
+	pop->selection();
+
+	mates = pop->getMatingPool();
+	for(int i = 0; i < POP_SIZE; i++)
+		EXPECT_TRUE(mates[i] != NULL);
+}

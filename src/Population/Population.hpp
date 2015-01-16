@@ -34,6 +34,7 @@ class Population
 		ind_vec getPopulation();
 		ind_vec getMatingPool();
 
+		void selection();
 		void reproduce();
 };
 
