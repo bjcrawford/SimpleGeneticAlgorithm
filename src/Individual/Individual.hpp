@@ -42,6 +42,7 @@ class Individual
 
 	public:
 		Individual();
+		Individual(Individual *toCopy);
 		Individual(bool_vec chromosome);
 		Individual(float realValue);
 		virtual ~Individual();

@@ -32,6 +32,15 @@ Individual::Individual()
 	count++;
 }
 
+Individual::Individual(Individual *toCopy)
+{
+	chromosome = toCopy->getChromosome();
+	realValue = toCopy->getRealValue();
+	objValue = toCopy->getObjValue();
+	relFitness = toCopy->getRelFitness();
+	count++;
+}
+
 /**
  * Creates an individual with the given chromosome
  *

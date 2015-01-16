@@ -106,6 +106,42 @@ TEST_F(IndividualDefaultConstructorFixtureTests, checkRelFitnessBounds)
 	EXPECT_TRUE(ind->getRelFitness() <= 4.0f);
 }
 
+
+// ==============================================================
+// |                Copy Constructor Tests                      |
+// ==============================================================
+
+TEST(IndividualCopyConstuctorTests, checkObjectCount)
+{
+	Individual *ind1 = new Individual();
+	EXPECT_EQ(1, Individual::getCount());
+
+	Individual *ind2 = new Individual(ind1);
+	EXPECT_EQ(2, Individual::getCount());
+
+	delete ind1;
+	EXPECT_EQ(1, Individual::getCount());
+
+	delete ind2;
+	EXPECT_EQ(0, Individual::getCount());
+}
+
+TEST(IndividualCopyConstuctorTests, checkCopy)
+{
+	Individual *ind1 = new Individual();
+	Individual *ind2 = new Individual(ind1);
+
+	EXPECT_NE(ind1, ind2);
+	EXPECT_EQ(ind1->getChromosome(), ind2->getChromosome());
+	EXPECT_EQ(ind1->getRealValue(), ind2->getRealValue());
+	EXPECT_EQ(ind1->getObjValue(), ind2->getObjValue());
+	EXPECT_EQ(ind1->getRelFitness(), ind2->getRelFitness());
+	EXPECT_EQ(ind1->getGenotype(), ind2->getGenotype());
+
+	delete ind1;
+	delete ind2;
+}
+
 // ==============================================================
 // |              Chromosome Constructor Tests                  |
 // ==============================================================
