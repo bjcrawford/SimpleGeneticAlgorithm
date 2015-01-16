@@ -43,3 +43,13 @@ TEST(PopulationDefaultConstructorTests, checkObjectCount)
 	delete pop;
 	EXPECT_EQ(0, Individual::getCount());
 }
+
+TEST_F(PopulationDefaultConstructorFixtureTests, checkRelFitnessBounds)
+{
+	ind_vec inds = pop->getPopulation();
+	for(int i = 0; i < POP_SIZE; i++)
+	{
+		EXPECT_GE(inds[i]->getRelFitness(), 0.0) << "pop[" << i << "] is less than zero";
+		EXPECT_LE(inds[i]->getRelFitness(), 1.0) << "pop[" << i << "] is greater than one";
+	}
+}

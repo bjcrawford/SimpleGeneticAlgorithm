@@ -46,4 +46,17 @@ void Population::reproduce()
 
 void Population::calcRelFitness()
 {
+	float relFitness = 0;
+	float totalFitness = 0;
+
+	for(int i = 0; i < POP_SIZE; i++)
+	{
+		totalFitness += population[i]->getObjValue();
+	}
+
+	for(int i = 0; i < POP_SIZE; i++)
+	{
+		relFitness = population[i]->getObjValue();
+		population[i]->setRelFitness(relFitness / totalFitness);
+	}
 }
