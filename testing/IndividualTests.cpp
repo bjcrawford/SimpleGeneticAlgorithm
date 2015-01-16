@@ -82,10 +82,10 @@ class IndividualRealConstructorFixtureTests : public testing::Test
 TEST(IndividualDefaultConstructorTests, checkObjectCount)
 {
 	Individual *ind = new Individual();
-	EXPECT_EQ(1, ind->getCount());
+	EXPECT_EQ(1, Individual::getCount());
 
 	delete ind;
-	EXPECT_EQ(0, ind->getCount());
+	EXPECT_EQ(0, Individual::getCount());
 }
 
 TEST_F(IndividualDefaultConstructorFixtureTests, checkRealValueBounds)
@@ -152,10 +152,10 @@ TEST(IndividualChromoConstructorTests, checkObjectCount)
 		                         true, false, false, true, false, true };
 
 	Individual *ind = new Individual(chromo);
-	EXPECT_EQ(1, ind->getCount());
+	EXPECT_EQ(1, Individual::getCount());
 
 	delete ind;
-	EXPECT_EQ(0, ind->getCount());
+	EXPECT_EQ(0, Individual::getCount());
 }
 
 TEST_F(IndividualChromoConstructorFixtureTests, checkRealValue)
@@ -190,10 +190,10 @@ TEST(IndividualRealConstructorTests, checkObjectCount)
 {
 	float realValue = 0.95336914f;
 	Individual *ind = new Individual(realValue);
-	EXPECT_EQ(1, ind->getCount());
+	EXPECT_EQ(1, Individual::getCount());
 
 	delete ind;
-	EXPECT_EQ(0, ind->getCount());
+	EXPECT_EQ(0, Individual::getCount());
 }
 
 TEST_F(IndividualRealConstructorFixtureTests, checkRealValue)
