@@ -17,6 +17,7 @@ Population::Population()
 	population.resize(POP_SIZE);
 	for(int i = 0; i < POP_SIZE; i++)
 		population[i] = new Individual();
+	calcRelFitness();
 }
 
 Population::~Population()
@@ -24,7 +25,6 @@ Population::~Population()
 	for(int i = 0; i < POP_SIZE; i++)
 		if(population[i] != NULL)
 			delete population[i];
-	calcRelFitness();
 }
 
 // ==============================================================
