@@ -46,7 +46,7 @@ class Individual
 		Individual(float realValue);
 		virtual ~Individual();
 
-		int getCount();
+		static int getCount();
 		bool getGene(int locus);
 		bool_vec getChromosome();
 		float getRealValue();
@@ -56,7 +56,7 @@ class Individual
 
 		void setGene(int locus, bool allele);
 		void setChromosome(bool_vec chromosome);
-		void setRelativeFitness(float relFitness);
+		void setRelFitness(float relFitness);
 
 	private:
 		void generateRandomChromosome();

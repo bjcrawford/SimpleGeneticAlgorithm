@@ -193,7 +193,7 @@ void Individual::setChromosome(bool_vec chromosome)
  * 
  * @param relFitness The realtive fitness
  */
-void Individual::setRelativeFitness(float relFitness)
+void Individual::setRelFitness(float relFitness)
 {
 	this->relFitness = relFitness;
 }
