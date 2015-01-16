@@ -23,6 +23,7 @@ class Population
 {
 	private:
 		ind_vec population;
+		ind_vec matingPool;
 
 		void calcRelFitness();
 
@@ -31,6 +32,7 @@ class Population
 		virtual ~Population();
 
 		ind_vec getPopulation();
+		ind_vec getMatingPool();
 
 		void reproduce();
 };

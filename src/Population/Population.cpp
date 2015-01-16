@@ -17,6 +17,11 @@ Population::Population()
 	population.resize(POP_SIZE);
 	for(int i = 0; i < POP_SIZE; i++)
 		population[i] = new Individual();
+
+	matingPool.resize(POP_SIZE);
+	for(int i = 0; i < POP_SIZE; i++)
+		matingPool[i] = NULL;
+
 	calcRelFitness();
 }
 
@@ -34,6 +39,11 @@ Population::~Population()
 ind_vec Population::getPopulation()
 {
 	return population;
+}
+
+ind_vec Population::getMatingPool()
+{
+	return matingPool;
 }
 
 void Population::reproduce()
