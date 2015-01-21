@@ -35,7 +35,7 @@ class PopulationDefaultConstructorFixtureTests : public testing::Test
 // |              Default Constructor Tests                     |
 // ==============================================================
 
-TEST(PopulationDefaultConstructorTests, checkObjectCount)
+TEST(PopulationDefaultConstructorTests, checkInitialObjectCount)
 {
 	Population *pop = new Population();
 	EXPECT_EQ(POP_SIZE, Individual::getCount());
@@ -54,7 +54,7 @@ TEST_F(PopulationDefaultConstructorFixtureTests, checkRelFitnessBounds)
 	}
 }
 
-TEST_F(PopulationDefaultConstructorFixtureTests, checkMatingPool)
+TEST_F(PopulationDefaultConstructorFixtureTests, checkSelection)
 {
 	ind_vec mates = pop->getMatingPool();
 	for(int i = 0; i < POP_SIZE; i++)
@@ -65,4 +65,13 @@ TEST_F(PopulationDefaultConstructorFixtureTests, checkMatingPool)
 	mates = pop->getMatingPool();
 	for(int i = 0; i < POP_SIZE; i++)
 		EXPECT_TRUE(mates[i] != NULL);
+}
+
+TEST_F(PopulationDefaultConstructorFixtureTests, checkReproduceObjectCount)
+{
+	EXPECT_EQ(POP_SIZE, Individual::getCount());
+	pop->selection();
+	EXPECT_EQ(2*POP_SIZE, Individual::getCount());
+	pop->reproduce();
+	EXPECT_EQ(POP_SIZE, Individual::getCount());
 }

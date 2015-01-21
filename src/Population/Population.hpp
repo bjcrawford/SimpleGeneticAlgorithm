@@ -16,6 +16,7 @@
 #include "../SGAConstants.hpp"
 #include "../Individual/Individual.hpp"
 
+typedef std::vector<bool> bool_vec;
 typedef std::vector<Individual *> ind_vec;
 typedef std::string string;
 
