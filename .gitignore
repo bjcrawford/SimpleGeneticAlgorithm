@@ -1,3 +1,5 @@
 libgtest.a
 CompileGTests.sh
 RunGTests
+CompileMain.sh
+RunMain
